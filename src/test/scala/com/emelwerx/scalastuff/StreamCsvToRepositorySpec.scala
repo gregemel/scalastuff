@@ -25,14 +25,17 @@ class StreamCsvToRepositorySpec extends fixture.FlatSpec
     val target: StreamCsvToRepository = new StreamCsvToRepository(readingRepository)
   }
 
-  it should "do something here" in { fixture =>
+  it should "call repo.save for every row in the source file" in { fixture =>
+
+    val numberOfRows = 2
+
     when(fixture.readingRepository.save(any[Temperature])(any[ExecutionContext])).thenReturn(Future{})
 
     whenReady(fixture.target.importFromCsvFile("datafile.txt")) {response =>
       response shouldBe Done
     }
 
-    verify(fixture.readingRepository, times(2)).save(any())(any())
+    verify(fixture.readingRepository, times(numberOfRows)).save(any())(any())
   }
 
 

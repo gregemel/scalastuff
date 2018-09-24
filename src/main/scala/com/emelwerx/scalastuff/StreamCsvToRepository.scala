@@ -15,7 +15,6 @@ import scala.util.{Failure, Success}
 class StreamCsvToRepository(repository: TemperatureRepository)
                            (implicit system: ActorSystem) extends LazyLogging  {
 
-//  lazy val repository: TemperatureRepository = new TemperatureRepository
   import system.dispatcher
 
   def importFromCsvFile(filePath: String): Future[Done] = {

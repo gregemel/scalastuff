@@ -15,13 +15,13 @@ object Main extends App {
 
   println(s"found config: $config")
 
-  private val readingRepository = new TemperatureRepository
+  private val repo = new TemperatureRepository
 
   import system.dispatcher
 
-  new StreamCsvToRepository(readingRepository).importFromCsvFile(filename)
+  new StreamCsvToRepository(repo).importFromCsvFile(filename)
     .onComplete { _ =>
-      readingRepository.shutdown()
+      repo.shutdown()
       system.terminate()
     }
 }
