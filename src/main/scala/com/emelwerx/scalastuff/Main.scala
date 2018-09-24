@@ -19,7 +19,7 @@ object Main extends App {
 
   import system.dispatcher
 
-  new StreamCsvToRepository(config, readingRepository).importFromCsvFile(filename)
+  new StreamCsvToRepository(readingRepository).importFromCsvFile(filename)
     .onComplete { _ =>
       readingRepository.shutdown()
       system.terminate()
